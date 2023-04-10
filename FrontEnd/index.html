@@ -7,7 +7,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-	<script src="https://kit.fontawesome.com/5e0383a3dd.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/5e0383a3dd.js" crossorigin="anonymous"></script>  <!--FontAwesome-->
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 </head>
@@ -16,8 +16,8 @@
 	<a href="./index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
+			<li><a href="./index.html">projets</a></li>
+			<li><a href="#contact">contact</a></li>
 			<li><a href="./login.html" id="login-logout">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
@@ -38,13 +38,9 @@
 	<section id="portfolio">
 		<div class="change-title">
 			<h2>Mes Projets</h2>
-			<div id="change-works-button" class="js-modal" style="display: none;">
-				<a href="#modal1"><i class="fa-regular fa-pen-to-square"></i> modifier</a>
-			</div>
 		</div>
-		<div class="gallery">
+		<div class="gallery"> <!--Affichage des travaux dans la division-->
 
-			
 		</div>
 	</section>
 	<section id="contact">
@@ -64,11 +60,11 @@
 <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
 	<div class="modal-wrapper js-modal-stop" id="modal-wrapper-gallery">
 		<div class="modal-navigation">
-			<div class="js-modal-return modal-return-button" style="visibility: hidden;">
+			<div class="js-modal-return modal-return-btn" style="visibility: hidden;">
 				<i class="fa-solid fa-arrow-left"></i>
 				<p>Retour</p>
 			</div>
-			<div class="js-modal-close modal-close-button">
+			<div class="js-modal-close modal-close-btn">
 				<i class="fa-solid fa-xmark"></i>
 				<p>Fermer la boite modale</p>
 			</div>
@@ -77,29 +73,37 @@
 		<div id="modal-gallery">
 
 		</div>
-		<input type="submit" value="Ajouter une photo">
-		<a href="" id="delete-modal-button">Supprimer la galerie</a>
+		<input type="submit" value="Ajouter une photo" id="add-work-btn">
+		<a href="" id="delete-modal-btn">Supprimer la galerie</a>
 	</div>
-	<div class="modal-wrapper js-modal-stop" id="modal-wrapper-add-work" style="display: none;">
+	<div class="modal-wrapper js-modal-stop" id="modal-wrapper-add-work" style="display: none;">		<!--ajout des travaux via la modale-->
 		<div class="modal-navigation">
-			<div class="js-modal-return modal-return-button">
+			<div class="js-modal-return modal-return-btn" id="return-btn">
 				<i class="fa-solid fa-arrow-left"></i>
 				<p>Retour</p>
 			</div>
-			<div class="js-modal-close modal-close-button">
+			<div class="js-modal-close modal-close-btn" id="close-btn">
 				<i class="fa-solid fa-xmark"></i>
 				<p>Fermer la boite modale</p>
 			</div>
 		</div>
 		<h3 class="title-modal">Ajout photo</h3>
 		<div id="modal-add-work">
-			<form method="post">
-				<input type="file">
+			<form id="add-work-form">
+				<div id="custom-image-upload">
+					<i class="fa-regular fa-image"></i>
+					<label for="work-image">+ Ajouter photo</label>
+					<input type="file" accept="images" id="work-image" name="work-image">
+					<p>jpg, png : 4mo maximum</p>
+					<img id="output-image" style="display: none;">
+				</div>
 				<label for="work-title">Titre</label>
 				<input type="text" name="work-title" id="work-title">
 				<label for="categories">Catégorie</label>
-				<select name="categories" id="select-categories"></select>
-				<input type="submit" value="Valider">
+				<select name="categories" id="select-categories">
+				</select>
+				<hr id="separation-line">
+				<input type="submit" value="Valider" id="submit-new-work">
 			</form>
 		</div>
 	</div>

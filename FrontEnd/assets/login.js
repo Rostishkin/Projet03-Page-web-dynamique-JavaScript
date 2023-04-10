@@ -1,7 +1,6 @@
-/* Fonction async + verification valeurs API */
+// Fonction asynchrone qui vérifie si les valeurs du formulaire correspondent aux valeurs de l'API
 async function logIn() {
-    
-    /* Verif valeurs formilaire */
+    // Récuperation des valeurs du formulaire
     const userEmail = document.querySelector('#email').value;
     const userPassword = document.querySelector('#password').value;
     
@@ -9,8 +8,7 @@ async function logIn() {
         email: userEmail,
         password: userPassword
     };
-
-    /* API  */
+    // Appel à l'API
     const response = await fetch('http://localhost:5678/api/users/login', {
         method: 'POST',
         headers: {
@@ -21,19 +19,19 @@ async function logIn() {
     
     const result = await response.json();
 
-    /* Véfification des valeurs + message Erreur */
+    // Véfification des valeurs
     if (!result.token) {
-        alert("Erreur d’identification: verifiez votre identifiant ou le mot de passe");
+        alert("Erreur dans l’identifiant ou le mot de passe");
         return;
     } else {
-        /* Redirection vers la page d'accueil + loggedUser */
+        // Redirection vers la page index.html et garde en mémoire le token d'autentification
         const userLogged = JSON.stringify(result);
         window.sessionStorage.setItem("loggedUser", userLogged);
         window.location.replace("index.html");
     }
 };
 
-/* EventListener à la soumission du formulaire qui déclenche la fonction asynchrone */
+// EventListener à la soumission du formulaire qui déclenche la fonction asynchrone
 const formLogIn = document.querySelector("#login");
 formLogIn.addEventListener("submit", function (event) {
     event.preventDefault();

@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	position: relative;
 }
 ol, ul {
 	list-style: none;
@@ -141,7 +142,7 @@ li:hover {
 
 }
 #contact {
-	width: 50%;
+	width: 40%;
 	margin: auto;
 }
 #contact > * {
@@ -190,18 +191,7 @@ input[type="submit"]:hover{
 	font-weight: bold;
 }
 
-footer{
-	display: flex;
-	align-items: center;
-	justify-content: end;
-	background-color: white;
-	height: 4rem;
-}
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
-}
+/* CONNEXION*/
 #connection{
 	width: 40%;
 	margin: auto;
@@ -238,12 +228,13 @@ footer nav ul {
 #header-login{
 	margin-bottom: 0;
 }
-
+/*FILTRES*/
 .filters-container{
 	margin: 3rem;
-	gap: 2em;
+	gap: 20px;
 	display: flex;
 	justify-content: center;
+	background-color: #fff;
 }
 .filters{
 	height: 2rem;
@@ -265,11 +256,11 @@ footer nav ul {
 	color: white;
 	background-color: #1D6154;
 }
-
+/*MODALE + EDIT*/
 .change-title{
 	position: relative;
 }
-#change-works-button{
+#change-works-btn{
 	position: absolute;
 	top: 10px;
 	right: 30%;
@@ -304,7 +295,7 @@ footer nav ul {
 .modal[aria-hidden="true"]{
 	animation-name: fadeOut;
 }
-.modal-wrapper input{
+.modal-wrapper input[type="submit"]{
 	align-self: center;
 	width: 250px;
 	height: 40px;
@@ -317,10 +308,10 @@ footer nav ul {
 	display: flex;
 	justify-content: space-between;
 }
-.modal-close-button p{
+.modal-close-btn p{
 	display: none;
 }
-.modal-return-button p{
+.modal-return-btn p{
 	display: none;
 }
 .fa-solid{
@@ -332,7 +323,7 @@ footer nav ul {
 	font-size: 1.8em;
 	margin-bottom: 30px;
 }
-#delete-modal-button{
+#delete-modal-btn{
 	align-self: center;
 	font-family: 'Syne';
 	font-weight: 400;
@@ -355,15 +346,144 @@ footer nav ul {
 }
 .trashcan{
 	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	filter: invert(100%);
 	background-color: #fff;
-	padding: 3px;
+	padding: 3px 5px;
 	border-radius: 2px;
 	position: absolute;
 	width: 10% !important;
 	right: 5px;
 	top: 5px;
 }
+.fa-trash-can{
+	font-size: 0.7rem;
+}
+.arrows {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2px 25px;
+	border-radius: 2px;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+.fa-arrows-up-down-left-right{
+	font-size: 0.8rem;
+}
+#add-work-form{
+	display: flex;
+	flex-direction: column;
+	margin: 0 100px;
+}
+#separation-line{
+	width: 100%;
+	height: 1px;
+	background-color: #B3B3B3;
+	border: none;
+}
+#custom-image-upload{
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 170px;
+	background-color: #E8F1F6;
+	border-radius: 3px;
+	margin-bottom: 30px;
+}
+#custom-image-upload label{
+	cursor: pointer;
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	color: #306685;
+	padding: 10px 30px;
+	margin: 20px 0 5px 0 !important;
+}
+#custom-image-upload label:hover{
+	background-color: #306685;
+	color: #CBD6DC;
+}
+#custom-image-upload input{
+	display: none;
+}
+#output-image{
+	position: absolute;
+	height: 100%;
+	object-fit: cover;
+	padding: 0 50px;
+	background-color: #E8F1F6;
+}
+#custom-image-upload p{
+	font-size: 10px;
+	font-weight: 400;
+	color: #444444;
+}
+.fa-image{
+	font-size: 5em;
+	color: #B9C5CC;
+}
+#add-work-form label{
+	margin-bottom: 10px;
+}
+#add-work-form input[type="text"], select{
+	width: 100%;
+	height: 50px;
+	padding: 0;
+	margin-bottom: 20px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	background-color: #fff;
+}
+#add-work-form select{
+	background: url('/FrontEnd/assets/icons/output-onlinepngtools.png') 95% / 5%;
+	background-repeat: no-repeat;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	cursor: pointer;
+}
+
+#work-title, #select-categories{
+	font-size: 14px;
+	font-weight: 400;
+}
+ /* Black stripe + EDIT mode */
+.headband{
+	position: fixed;
+	width: 100vw;
+	top: 0px;
+	left: 0px;
+	background-color: #000000;
+	height: 60px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+}
+.edition-mode{
+	cursor: pointer;
+	display: flex;
+	margin-right: 1rem;
+}
+.edition-mode p{
+	color: #fff;
+	margin-left: 0.3rem;
+}
+.publish-button{
+	cursor: pointer;
+	background-color: #fff;
+	border-radius: 60px;
+	padding: 10px 20px;
+}
+/* Animation */
 @keyframes fadeIn {
 	from { opacity: 0; }
 	to { opacity: 1; }
@@ -371,4 +491,17 @@ footer nav ul {
 @keyframes fadeOut {
 	from { opacity: 1; }
 	to { opacity: 0; }
+}
+
+footer{
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	background-color: white;
+	height: 4rem;
+}
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em
 }
