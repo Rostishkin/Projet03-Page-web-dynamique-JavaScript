@@ -1,0 +1,374 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{
+	text-decoration: none;
+	color: unset;
+}
+/** end reset css**/
+body {
+	max-width: 1140px;
+	margin:auto;
+	font-family: 'Work Sans' ;
+	font-size: 14px;
+	background-color: #FFFEF8;
+}
+header {
+	display: flex;
+	justify-content: space-between;
+	margin: 50px 0
+}
+section {
+	margin: 50px 0
+}
+
+h1{
+	display: flex;
+	flex-direction: column;
+	font-family: 'Syne';
+	font-size: 22px;
+	font-weight: 800;
+	color: #B1663C;
+}
+
+h1 > span {
+	font-family: 'Work Sans';
+	font-size:10px;
+	letter-spacing: 0.1em;
+}
+
+h2{
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154;
+}
+nav ul {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+
+}
+nav li {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+li:hover {
+	color: #B1663C;
+}
+#introduction {
+	display: flex;
+	align-items: center;
+}
+#introduction figure {
+	flex: 1;
+}
+#introduction img {
+	display: block;
+	margin: auto;
+	width: 80%;
+}
+
+#introduction article {
+	flex: 1;
+}
+#introduction h2 {
+	margin-bottom: 1em;
+}
+
+#introduction p {
+	margin-bottom: 0.5em;
+}
+#portfolio h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+.gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.gallery img {
+	width: 100%;
+
+}
+#contact {
+	width: 50%;
+	margin: auto;
+}
+#contact > * {
+	text-align: center;
+
+}
+#contact h2{
+	margin-bottom: 20px;
+}
+#contact form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#contact input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#contact label {
+	margin: 2em 0 1em 0;
+}
+#contact textarea {
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+input[type="submit"]{
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+}
+input[type="submit"]:hover{
+	cursor: pointer;
+}
+
+.selected-page{
+	font-weight: bold;
+}
+
+footer{
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	background-color: white;
+	height: 4rem;
+}
+footer nav ul {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2em
+}
+#connection{
+	width: 40%;
+	margin: auto;
+	text-align: center;
+}
+#connection h2{
+	margin-bottom: 30px;
+}
+#connection form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+#connection input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#connection label {
+	margin: 2em 0 1em 0;
+}
+#forgotten-password{
+	color: #3D3D3D;
+	text-decoration: underline;
+}
+#flex-body{
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+#header-login{
+	margin-bottom: 0;
+}
+
+.filters-container{
+	margin: 3rem;
+	gap: 2em;
+	display: flex;
+	justify-content: center;
+}
+.filters{
+	height: 2rem;
+	background-color: transparent;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	color: #1D6154;
+	padding: 0 15px;
+}
+.filters:hover{
+	cursor: pointer;
+	color: white;
+	background-color: #1D6154;
+}
+.active{
+	color: white;
+	background-color: #1D6154;
+}
+
+.change-title{
+	position: relative;
+}
+#change-works-button{
+	position: absolute;
+	top: 10px;
+	right: 30%;
+}
+.fa-regular{
+	font-size: 1em;
+	color: #000000;
+}
+.modal{
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	animation: fadeIn .5s both;
+}
+.modal-wrapper{
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	width: 600px;
+	max-width: calc(100vw - 20px);
+	max-height: calc(100vh - 20px);
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 10px;
+}
+.modal[aria-hidden="true"]{
+	animation-name: fadeOut;
+}
+.modal-wrapper input{
+	align-self: center;
+	width: 250px;
+	height: 40px;
+	font-size: 1em;
+	font-weight: 700;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+.modal-navigation{
+	display: flex;
+	justify-content: space-between;
+}
+.modal-close-button p{
+	display: none;
+}
+.modal-return-button p{
+	display: none;
+}
+.fa-solid{
+	cursor: pointer;
+	font-size: 1.6em;
+}
+.title-modal{
+	align-self: center;
+	font-size: 1.8em;
+	margin-bottom: 30px;
+}
+#delete-modal-button{
+	align-self: center;
+	font-family: 'Syne';
+	font-weight: 400;
+	color: #D65353;
+	margin-bottom: 20px;
+}
+#modal-gallery{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	gap: 5px;
+	margin: 0 100px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid #B3B3B3;
+}
+#modal-gallery img{
+	width: 100%;
+}
+.miniature-works{
+	position: relative;
+}
+.trashcan{
+	cursor: pointer;
+	filter: invert(100%);
+	background-color: #fff;
+	padding: 3px;
+	border-radius: 2px;
+	position: absolute;
+	width: 10% !important;
+	right: 5px;
+	top: 5px;
+}
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+@keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}

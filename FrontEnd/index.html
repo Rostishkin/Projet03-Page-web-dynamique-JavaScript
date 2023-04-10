@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/5e0383a3dd.js" crossorigin="anonymous"></script>
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+<header>
+	<a href="./index.html"><h1>Sophie Bluel <span>Architecte d'intérieur</span></h1></a>
+	<nav>
+		<ul>
+			<li>projets</li>
+			<li>contact</li>
+			<li><a href="./login.html" id="login-logout">login</a></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+<main>
+	<section id="introduction">
+		<figure>
+			<img src="./assets/images/sophie-bluel.png" alt="">
+		</figure>
+		<article>
+			<h2>Designer d'espace</h2>
+			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+		</article>
+	</section>
+	<section id="portfolio">
+		<div class="change-title">
+			<h2>Mes Projets</h2>
+			<div id="change-works-button" class="js-modal" style="display: none;">
+				<a href="#modal1"><i class="fa-regular fa-pen-to-square"></i> modifier</a>
+			</div>
+		</div>
+		<div class="gallery">
+
+			
+		</div>
+	</section>
+	<section id="contact">
+		<h2>Contact</h2>
+		<p>Vous avez un projet ? Discutons-en !</p>
+		<form action="#" method="post">
+			<label for="name">Nom</label>
+			<input type="text" name="name" id="name">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email">
+			<label for="message">Message</label>
+			<textarea name="message" id="message" cols="30" rows="10"></textarea>
+			<input type="submit" value="Envoyer">
+		</form>
+	</section>
+</main>
+<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal" style="display: none;">
+	<div class="modal-wrapper js-modal-stop" id="modal-wrapper-gallery">
+		<div class="modal-navigation">
+			<div class="js-modal-return modal-return-button" style="visibility: hidden;">
+				<i class="fa-solid fa-arrow-left"></i>
+				<p>Retour</p>
+			</div>
+			<div class="js-modal-close modal-close-button">
+				<i class="fa-solid fa-xmark"></i>
+				<p>Fermer la boite modale</p>
+			</div>
+		</div>
+		<h3 class="title-modal">Galerie photo</h3>
+		<div id="modal-gallery">
+
+		</div>
+		<input type="submit" value="Ajouter une photo">
+		<a href="" id="delete-modal-button">Supprimer la galerie</a>
+	</div>
+	<div class="modal-wrapper js-modal-stop" id="modal-wrapper-add-work" style="display: none;">
+		<div class="modal-navigation">
+			<div class="js-modal-return modal-return-button">
+				<i class="fa-solid fa-arrow-left"></i>
+				<p>Retour</p>
+			</div>
+			<div class="js-modal-close modal-close-button">
+				<i class="fa-solid fa-xmark"></i>
+				<p>Fermer la boite modale</p>
+			</div>
+		</div>
+		<h3 class="title-modal">Ajout photo</h3>
+		<div id="modal-add-work">
+			<form method="post">
+				<input type="file">
+				<label for="work-title">Titre</label>
+				<input type="text" name="work-title" id="work-title">
+				<label for="categories">Catégorie</label>
+				<select name="categories" id="select-categories"></select>
+				<input type="submit" value="Valider">
+			</form>
+		</div>
+	</div>
+</aside>
+<footer>
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
+<script src="assets/index.js"></script>
+</body>
+</html>
