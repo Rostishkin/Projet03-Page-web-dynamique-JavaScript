@@ -401,18 +401,13 @@ const generateWorkElementsInModal = (works) => {
     const imageElement = document.createElement('img');
     imageElement.src = works.imageUrl;
 
-    /*Creation de l'icone "TRASHCAN" et l'icone "ARROWS"*/
+    /*Creation de l'icone "TRASHCAN"*/
     const trashcanElement = document.createElement('i');
-    const arrowsElement = document.createElement ('i');
 
     trashcanElement.classList.add('trashcan');
     trashcanElement.classList.add('fa-solid');
     trashcanElement.classList.add('fa-trash-can');
     trashcanElement.dataset.id = works.id;
-
-    arrowsElement.classList.add('arrows');
-    arrowsElement.classList.add('fa-solid');
-    arrowsElement.classList.add('fa-arrows-up-down-left-right');
 
     /*Creation de la legende*/
     const titleElement = document.createElement('p');
@@ -420,7 +415,6 @@ const generateWorkElementsInModal = (works) => {
 
     /* Rattachement des balises */
     workElement.appendChild(imageElement);
-    workElement.appendChild(arrowsElement);
     workElement.appendChild(trashcanElement);
     workElement.appendChild(titleElement);
 
