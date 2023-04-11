@@ -22,25 +22,6 @@ const getWorks = () => fetchData(PATH_WORKS);
 /* Récupération des FILTRES */
 const getCategories = () => fetchData(PATH_CATEGORIES);
 
-/* Suppression des TRAVAUX */
-const deleteWorks = async (id) => {
-    if (!id || id < 0) return;
-    
-    try {
-        const response = await fetch(PATH_API + PATH_WORKS + id, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userLogInToken.token}`
-            },
-        });
-        if (!response.ok) {
-           throw new Error('La suppression des données n`a pas abouti!');
-        }
-    } catch (error) {
-        console.log( error );
-    }
-};
 /* FONCTION GENERALE */
 const initialize = async () => {
 
@@ -388,8 +369,6 @@ const categoriesModalForm = async () => {
     });
 };
 
-
-
 /* Génération des éléments pour les works dans la modale*/
 const generateWorkElementsInModal = (works) => {
     /* Créer l'élément figure pour les travaux */
@@ -419,6 +398,26 @@ const generateWorkElementsInModal = (works) => {
     workElement.appendChild(titleElement);
 
     return workElement;
+};
+
+/* Suppression des TRAVAUX */
+const deleteWorks = async (id) => {
+    if (!id || id < 0) return;
+    
+    try {
+        const response = await fetch(PATH_API + PATH_WORKS + id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${userLogInToken.token}`
+            },
+        });
+        if (!response.ok) {
+           throw new Error('La suppression des données n`a pas abouti!');
+        }
+    } catch (error) {
+        console.log( error );
+    }
 };
 
 /* Suppression des Works avec click sur "TRASHCAN" */
