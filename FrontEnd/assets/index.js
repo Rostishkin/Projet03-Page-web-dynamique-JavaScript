@@ -17,7 +17,25 @@ const fetchData = async (path) => {
     }
 };
 /* Récupération des TRAVAUX */
-const getWorks = () => fetchData(PATH_WORKS);
+//const getWorks = () => fetchData(PATH_WORKS);
+
+/* Récupération des TRAVAUX avec AJAX */
+const getWorks = () => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `${PATH_API}${PATH_WORKS}`);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.responseText));
+                } else {
+                    reject(new Error('Erreur lors de la récupération des données'));
+                }
+            }
+        };
+        xhr.send();
+    });
+};
 
 /* Récupération des FILTRES */
 const getCategories = () => fetchData(PATH_CATEGORIES);
@@ -30,12 +48,12 @@ const initialize = async () => {
 
     /* Affichage boutons FILTRES*/
     initButtons();
-    
-    /* Affichage WORKS*/ 
+
+    /* Affichage WORKS*/
     refreshWorks();
 };
 
-// Rafraîchissement des travaux 
+// Rafraîchissement des travaux
 const refreshWorks = async () => {
     let allWorks = await getWorks();
     generateWorks(allWorks);
@@ -52,7 +70,7 @@ const checkLogin = () => {
 
     if (userLogInToken !== null ) {
         userLogInToken = JSON.parse(userLogInToken);
-        
+
         const logInLogOut = document.getElementById("login-logout");
         logInLogOut.innerText = "logout";
 
@@ -69,7 +87,7 @@ const checkLogin = () => {
 
 
 //WORKS
-/* Generation des travaux*/ 
+/* Generation des travaux*/
 const generateWorks = (allWorks) => {
 
     if (!allWorks)
@@ -103,7 +121,7 @@ const generateWorks = (allWorks) => {
 
 
 
-// FILTRES 
+// FILTRES
 /*Generation des boutons filtres*/
 const initButtons = async () => {
 
@@ -147,7 +165,7 @@ const initButtons = async () => {
     let allButtons = await getCategories();
 
     if (!allButtons)
-        return 
+        return
 
     for (let i = 0; i < allButtons.length; i++) {
         const buttons = allButtons[i];
@@ -156,7 +174,7 @@ const initButtons = async () => {
         buttonElement.dataset.id = buttons.id;
         buttonElement.innerText = buttons.name;
         buttonElement.classList.add('filters');
-        
+
         filtersSection.appendChild(buttonElement);
 
         buttonElement.addEventListener("click", async function() {
@@ -248,7 +266,7 @@ const editWorks = () => {
     editButtonText.href = '#modal1';
     editButtonText.style.marginLeft = '0.3rem';
     editButtonText.innerText = 'modifier';
-    
+
     myProjects.appendChild(editButton);
     editButton.appendChild(editButtonIcon);
     editButton.appendChild(editButtonText);
@@ -274,7 +292,7 @@ let focusables = [];
 /* OUVERTURE de la modale */
 const openModal = async (e) => {
     e.preventDefault();
-    
+
     const target = e.target.getAttribute('href');
     modal = document.querySelector(target);
     modal.style.display = "";
@@ -287,7 +305,7 @@ const openModal = async (e) => {
     modal.addEventListener('click', closeModal);
     modal.querySelector('.js-modal-close').addEventListener('click', closeModal);
     modal.querySelector('.js-modal-stop').addEventListener('click', stopPropagation);
-    
+
     /* Correction de navigation à l'intérieur de la modale */
     const galleryModal = document.getElementById('modal-wrapper-gallery');
     const addWorkModal = document.getElementById('modal-wrapper-add-work');
@@ -354,17 +372,17 @@ const showFirstModalPage = () => {
 const categoriesModalForm = async () => {
     const selectCategoriesModal = document.getElementById('select-categories');
     selectCategoriesModal.innerHTML = "";
-    
+
     const allCategories = await getCategories();
 
     if (!allCategories)
-        return 
+        return
 
     allCategories.forEach((category) => {
         const optionElement = document.createElement('option');
         optionElement.value = category.id;
         optionElement.innerText = category.name;
-    
+
         selectCategoriesModal.appendChild(optionElement);
     });
 };
@@ -401,23 +419,24 @@ const generateWorkElementsInModal = (works) => {
 };
 
 /* Suppression des TRAVAUX */
-const deleteWorks = async (id) => {
-    if (!id || id < 0) return;
-    
-    try {
-        const response = await fetch(PATH_API + PATH_WORKS + id, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userLogInToken.token}`
-            },
-        });
-        if (!response.ok) {
-           throw new Error('La suppression des données n`a pas abouti!');
-        }
-    } catch (error) {
-        console.log( error );
-    }
+const deleteWorks = (id) => {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('DELETE', `${PATH_API}${PATH_WORKS}${id}`);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization', `Bearer ${userLogInToken.token}`);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 204) {
+                    resolve();
+                    refreshWorks();
+                } else {
+                    reject(new Error('La suppression des données n\'a pas abouti!'));
+                }
+            }
+        };
+        xhr.send();
+    });
 };
 
 /* Suppression des Works avec click sur "TRASHCAN" */
@@ -425,12 +444,11 @@ const deleteWorksClick = async (event) => {
     event.preventDefault();
     const idToDelete = event.target.dataset.id;
     await deleteWorks(idToDelete);
-    refreshWorks();
 };
 
 /* Generation des travaux dans modale */
 const generateWorksInModal = (allWorks) => {
-    if (!allWorks) 
+    if (!allWorks)
         return;
 
     // Sélectionner la div gallerie qui accueillera les travaux
@@ -470,7 +488,7 @@ const validateFileSize = (file) => {
 };
 
 // Fonction permettant d'ajouter des travaux à l'API
-const postWorks = async (e) => {
+const postWorks = (e) => {
     e.preventDefault();
 
     const file = newWorkImage.files[0];
@@ -492,22 +510,21 @@ const postWorks = async (e) => {
     dataForm.append('title', title);
     dataForm.append('category', category);
 
-    try {
-        const response = await fetch(PATH_API + PATH_WORKS, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Authorization': `Bearer ${userLogInToken.token}`
-            },
-            body: dataForm,
-        });
-
-        alert('Vous avez ajouté une photo');
-        refreshWorks();
-        showFirstModalPage();
-    } catch(error) {
-        console.log(error);
-    }
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `${PATH_API}${PATH_WORKS}`);
+    xhr.setRequestHeader('Authorization', `Bearer ${userLogInToken.token}`);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 201) {
+                alert('Vous avez ajouté une photo');
+                refreshWorks();
+                showFirstModalPage();
+            } else {
+                console.log(xhr.responseText);
+            }
+        }
+    };
+    xhr.send(dataForm);
 };
 
 /* Preview d'image avant telechargement */
@@ -553,7 +570,7 @@ const resetForm = function() {
 };
 
 /* Envoi d'un nouvel travail à l'API lors de la soumission du formulaire*/
-addWorkForm.addEventListener('submit', postWorks); 
+addWorkForm.addEventListener('submit', postWorks);
 
 
 
