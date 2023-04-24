@@ -234,7 +234,7 @@ input[type="submit"]:hover{
 	gap: 20px;
 	display: flex;
 	justify-content: center;
-	background-color: #fff;
+	background-color: #FFFEF8;
 }
 .filters{
 	height: 2rem;
