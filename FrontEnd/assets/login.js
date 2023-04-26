@@ -26,7 +26,7 @@ async function logIn() {
     } else {
         /* Retour vers la page index.html et garde en mémoire le token d'autentification */
         const userLogged = JSON.stringify(result);
-        window.sessionStorage.setItem("loggedUser", userLogged);
+        window.localStorage.setItem("loggedUser", userLogged);
         window.location.replace("index.html");
     }
 };

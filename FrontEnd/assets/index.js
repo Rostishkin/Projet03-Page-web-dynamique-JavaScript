@@ -65,7 +65,7 @@ const refreshWorks = async () => {
 
 //IDENTIFICATION
 /*Check si User est autentifié en tant qu'ADMIN*/
-let userLogInToken = window.sessionStorage.getItem('loggedUser');
+let userLogInToken = window.localStorage.getItem('loggedUser');
 const checkLogin = () => {
 
     if (userLogInToken !== null ) {
@@ -79,7 +79,7 @@ const checkLogin = () => {
 
         logInLogOut.addEventListener("click", function (event) {
             event.preventDefault();
-            window.sessionStorage.removeItem("loggedUser");
+            window.localStorage.removeItem("loggedUser");
             window.location.reload();
         });
     };
@@ -125,23 +125,23 @@ const generateWorks = (allWorks) => {
 /*Generation des boutons filtres*/
 const initButtons = async () => {
 
-    /* Boutons "FILTRES" non apparents si USER log en tant qu'ADMIN*/
+    /* Création de la div conteneur pour les filtres*/
+    const portfolioWorkss = document.querySelector(".gallery");
+    const filtersSection = document.createElement("div");
+    
+    /* si user logé les filtres n'apparaissent pas */
     if (userLogInToken !== null) {
         filtersSection.innerHTML = "";
     };
 
-    /* Création de la div conteneur pour les filtres*/
-    const portfolioWorkss = document.querySelector(".gallery");
-    const filtersSection = document.createElement("div");
     filtersSection.classList.add("filters-container");
     portfolioWorkss.before(filtersSection);
 
     /* Creation bouton "TOUS" */
     const buttonAllWorks = document.createElement("button");
-        buttonAllWorks.innerText = "Tous";
-        buttonAllWorks.classList.add("filters");
-        buttonAllWorks.classList.add("active");
-
+    buttonAllWorks.innerText = "Tous";
+    buttonAllWorks.classList.add("filters");
+    buttonAllWorks.classList.add("active");
     filtersSection.appendChild(buttonAllWorks);
 
     buttonAllWorks.addEventListener("click", async function() {
@@ -161,34 +161,73 @@ const initButtons = async () => {
         btn.target.classList.add("active")
     });
 
+    /* Extraction des catégories uniques */
+    let allWorks = await getWorks();
+    let categories = [...new Set(allWorks.map(work => work.category.name))];
+
     /* Affichage travaux filtrés par categorie */
-    let allButtons = await getCategories();
-
-    if (!allButtons)
-        return
-
-    for (let i = 0; i < allButtons.length; i++) {
-        const buttons = allButtons[i];
-
+    categories.forEach(category => {
         let buttonElement = document.createElement("button");
-        buttonElement.dataset.id = buttons.id;
-        buttonElement.innerText = buttons.name;
+        buttonElement.innerText = category;
         buttonElement.classList.add('filters');
-
         filtersSection.appendChild(buttonElement);
 
         buttonElement.addEventListener("click", async function() {
             document.querySelector(".gallery").innerHTML = "";
 
             let allWorks = await getWorks();
-            const worksForCategory = allWorks.filter(work => work.category.id == buttonElement.dataset.id);
+            const worksForCategory = allWorks.filter(work => work.category.name == category);
             generateWorks(worksForCategory);
         });
-    };
-
+    });
 };
 
+/* Refresh filtre */
+const refreshFilters = async () => {
+  const works = await getWorks();
+  const categoryIds = works.map(work => work.category.id);
+  const uniqueCategoryIds = [...new Set(categoryIds)];
+  const categoryName = works.map(work => work.category.name);
 
+  const filtersSection = document.querySelector('.filters-container');
+  if (filtersSection) {
+    filtersSection.innerHTML = '';
+    const allButton = createFilterButton('Tous', null, true);
+    filtersSection.appendChild(allButton);
+    uniqueCategoryIds.forEach((categoryId, index) => {
+      const button = createFilterButton(categoryName[index], categoryId);
+      filtersSection.appendChild(button);
+    });
+  }
+};
+
+/* Creation des filtres dynamiquement */
+const createFilterButton = (text, categoryId, isActive = false) => {
+  const button = document.createElement('button');
+  button.innerText = text;
+  button.classList.add('filters');
+  if (categoryId) {
+    button.dataset.id = categoryId;
+  }
+  if (isActive) {
+    button.classList.add('active');
+  }
+  button.addEventListener('click', async () => {
+    const gallery = document.querySelector('.gallery');
+    gallery.innerHTML = '';
+    const works = await getWorks();
+    const filteredWorks = categoryId ?
+      works.filter(work => work.category.id == categoryId) :
+      works;
+    generateWorks(filteredWorks);
+    const activeButton = document.querySelector('.filters-container button.active');
+    if (activeButton) {
+      activeButton.classList.remove('active');
+    }
+    button.classList.add('active');
+  });
+  return button;
+};
 
 /* Creation de EDITION MODE + black stripe*/
 
@@ -430,6 +469,7 @@ const deleteWorks = (id) => {
                 if (xhr.status === 204) {
                     resolve();
                     refreshWorks();
+                    refreshFilters();
                 } else {
                     reject(new Error('La suppression des données n\'a pas abouti!'));
                 }
@@ -518,6 +558,7 @@ const postWorks = (e) => {
             if (xhr.status === 201) {
                 alert('Vous avez ajouté une photo');
                 refreshWorks();
+                refreshFilters();
                 showFirstModalPage();
             } else {
                 console.log(xhr.responseText);
