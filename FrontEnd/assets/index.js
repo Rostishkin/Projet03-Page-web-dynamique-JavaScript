@@ -124,17 +124,16 @@ const generateWorks = (allWorks) => {
 // FILTRES
 /*Generation des boutons filtres*/
 const initButtons = async () => {
-
     /* Création de la div conteneur pour les filtres*/
     const portfolioWorkss = document.querySelector(".gallery");
     const filtersSection = document.createElement("div");
-    
-    /* si user logé les filtres n'apparaissent pas */
-    if (userLogInToken !== null) {
-        filtersSection.innerHTML = "";
-    };
 
     filtersSection.classList.add("filters-container");
+
+    if (userLogInToken) {
+        return false;
+    };
+
     portfolioWorkss.before(filtersSection);
 
     /* Creation bouton "TOUS" */
@@ -184,20 +183,25 @@ const initButtons = async () => {
 
 /* Refresh filtre */
 const refreshFilters = async () => {
-  const works = await getWorks();
-  const categoryIds = works.map(work => work.category.id);
-  const uniqueCategoryIds = [...new Set(categoryIds)];
-  const categoryName = works.map(work => work.category.name);
 
-  const filtersSection = document.querySelector('.filters-container');
-  if (filtersSection) {
-    filtersSection.innerHTML = '';
-    const allButton = createFilterButton('Tous', null, true);
-    filtersSection.appendChild(allButton);
-    uniqueCategoryIds.forEach((categoryId, index) => {
-      const button = createFilterButton(categoryName[index], categoryId);
-      filtersSection.appendChild(button);
-    });
+  if (userLogInToken) {
+      return false;
+  } else {
+    const works = await getWorks();
+    const categoryIds = works.map(work => work.category.id);
+    const uniqueCategoryIds = [...new Set(categoryIds)];
+    const categoryName = works.map(work => work.category.name);
+
+    const filtersSection = document.querySelector('.filters-container');
+    if (filtersSection) {
+      filtersSection.innerHTML = '';
+      const allButton = createFilterButton('Tous', null, true);
+      filtersSection.appendChild(allButton);
+      uniqueCategoryIds.forEach((categoryId, index) => {
+        const button = createFilterButton(categoryName[index], categoryId);
+        filtersSection.appendChild(button);
+      });
+    }
   }
 };
 
